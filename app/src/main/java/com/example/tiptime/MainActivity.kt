@@ -35,6 +35,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -77,7 +81,9 @@ fun TipTimeLayout() {
                 .align(alignment = Alignment.Start)
         )
         EditNumberField(
-            modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(bottom = 32.dp)
+                .fillMaxWidth()
         )
         Text(
             text = stringResource(R.string.tip_amount, "$0.00"),
@@ -89,9 +95,15 @@ fun TipTimeLayout() {
 
 @Composable
 fun EditNumberField(modifier: Modifier = Modifier) {
+    val (value, onValueChange) = remember { mutableStateOf("0") }
+    /*
+        Lo mismo que
+        var value by remember { mutableStateOf("0") }
+        val onValueChange = { value = it }
+     */
     TextField(
-            value = "0",
-            onValueChange = {},
+            value = value,
+            onValueChange = onValueChange,
             modifier = modifier
     )
 }
